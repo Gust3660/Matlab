@@ -1,0 +1,35 @@
+% Parámetros iniciales
+altura_edificio = 7; % Altura del edificio en metros
+v0 = 10; % Velocidad inicial en m/s
+angulo = 30; % Ángulo de lanzamiento en grados
+g = 9.81; % Aceleración debido a la gravedad en m/s^2
+
+% Conversión de ángulo a radianes
+angulo_rad = deg2rad(angulo);
+
+% Componentes de velocidad inicial
+v0x = v0 * cos(angulo_rad); % Componente horizontal
+v0y = v0 * sin(angulo_rad); % Componente vertical
+
+% Tiempo hasta que la pelota toque el suelo
+t_total = (v0y + sqrt(v0y^2 + 2 * g * altura_edificio)) / g;
+
+% Tiempo para la simulación
+t = linspace(0, t_total, 100);
+
+% Trayectoria de la pelota
+x = v0x * t; % Posición horizontal
+y = altura_edificio + v0y * t - 0.5 * g * t.^2; % Posición vertical
+
+% Gráfica de la simulación
+figure;
+plot(x, y, 'b-', 'LineWidth', 2);
+xlabel('Posición horizontal (m)');
+ylabel('Posición vertical (m)');
+title('Simulación del Movimiento de una Pelota desde un Edificio');
+grid on;
+
+% Verifica si la pelota toca el suelo
+hold on;
+line([0 max(x)], [0 0], 'Color', 'red', 'LineStyle', '--'); % Línea del suelo
+legend('Trayectoria', 'Suelo');
